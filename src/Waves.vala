@@ -34,7 +34,6 @@ namespace Waves {
 				actor_i.set_size(10, 100);
 				actor_i.set_position(20*i, 100);
 				actors.add_child(actor_i);
-				expand_actor(actor_i);
 			}
 			stage.add_child(actors);
 			window.add(clutter);
@@ -53,6 +52,10 @@ namespace Waves {
 	            case Gst.MessageType.ELEMENT:
 	                GLib.Value magnitude = message.get_structure ().copy ().get_value ("magnitude");
 	                stdout.printf ("%s\n\n", magnitude.strdup_contents ());
+
+	                //string[] mags = magnitude.dup_string ();
+					//stdout.printf ("%s\n\n", mags[0]);	                
+	                //expand_actor(actors.get_child_at_index(1), )
 	                break;
 	            case Gst.MessageType.STATE_CHANGED:
 	                stdout.printf ("hummm");
@@ -73,21 +76,6 @@ namespace Waves {
 	        return true;
 	    }
 
-		private void thread_start()
-		{
-			try {
-				// Start a thread:
-				PulseConnect my_thread = new PulseConnect ();
-
-				Thread<int> thread = new Thread<int>.try ("My fst. thread", my_thread.connect);
-				thread.join ();
-				Thread<int> thread2 = new Thread<int>.try ("My fst. thread", my_thread.run);
-				//thread2.join ();
-			} catch (Error e) {
-				stdout.printf ("Error: %s\n", e.message);
-			}
-		}
-
 		public static int main(string[] args) {
 	        var init = GtkClutter.init (ref args);
 	        Gst.init (ref args);
@@ -103,39 +91,15 @@ namespace Waves {
 	        return 0;
     	}
 
-    	Clutter.PropertyTransition expand_actor (Clutter.Actor actor) {
+    	Clutter.PropertyTransition expand_actor (Clutter.Actor actor, int i_height) {
 	        var transition = new Clutter.PropertyTransition ("height");
 	        transition.animatable = actor;
 	        transition.set_duration (3000);
 	        transition.set_progress_mode (Clutter.AnimationMode.EASE_OUT_CIRC);
 	        transition.set_from_value (actor.height);
-	        transition.set_to_value (200);
-	        actor.add_transition ("size", transition);
+	        transition.set_to_value (i_height);
+	        actor.add_transition ("size"+i_height.to_string(), transition);
 	        return transition;
 	    }
 	}
-
-	public class PulseConnect : GLib.Object {
-		private Pulse pulse;
-
-		public PulseConnect () {
-			pulse = new Pulse ();
-		}
-
-		public int connect (){
-			pulse.start();
-			return 1;
-		}
-
-		public int run () {
-			int16[] data = pulse.read();
-
-			for(int16 i = 0; i < data.length; i++)
-			{
-				message(i.to_string());
-			}
-
-			return 1;
-		}
-	}	
 } 
