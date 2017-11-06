@@ -9,5 +9,5 @@ cluttergtk = dependency ('clutter-gtk-1.0')
 pulseaudio = dependency ('libpulse')
 mainpulseaudio = dependency ('libpulse-mainloop-glib') 
 simplepulse = dependency ('libpulse-simple')
- 
+gstreamer = dependency ('gstreamer-1.0') 
 subdir ('src')

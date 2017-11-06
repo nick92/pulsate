@@ -1,7 +1,7 @@
-
 using Gtk;
 using Clutter;
 using GtkClutter;
+using Gst;
 
 namespace Waves {
 	public class Main : Gtk.Application {
@@ -10,6 +10,8 @@ namespace Waves {
 		GtkClutter.Embed clutter;
 		Gtk.Window window;
 		Pulse pulse;
+		FFTStreamer fft;
+		Gst.Pipeline pip;
 
 		public Main () {
 			window = new Gtk.Window();
@@ -17,6 +19,7 @@ namespace Waves {
 			window.set_title("Waves");
 			window.destroy.connect( () => Gtk.main_quit());
 			actors = new Clutter.Actor();
+			fft = new FFTStreamer();
 			
 			//pulse = new Pulse ();
 			//pulse.start();
@@ -36,9 +39,39 @@ namespace Waves {
 			stage.add_child(actors);
 			window.add(clutter);
 
-			this.thread_start();
+			//this.thread_start();
 			this.window.show_all();
+			
+			pip = fft.play("stream");
+
+			Gst.Bus bus = pip.get_bus ();
+        	bus.add_watch (0, bus_callback);
 		}
+
+		private bool bus_callback (Gst.Bus bus, Gst.Message message) {
+	        switch (message.type) {
+	            case Gst.MessageType.ELEMENT:
+	                GLib.Value magnitude = message.get_structure ().copy ().get_value ("magnitude");
+	                stdout.printf ("%s\n\n", magnitude.strdup_contents ());
+	                break;
+	            case Gst.MessageType.STATE_CHANGED:
+	                stdout.printf ("hummm");
+	                break;
+	            case Gst.MessageType.ERROR:
+	                GLib.Error err;
+	                string debug;
+	                message.parse_error (out err, out debug);
+	                warning (err.message);
+	                break;
+	            case Gst.MessageType.EOS:
+	                //FIXME: stream ends here, maybe start dumping in sinewaves or perlin noise to keep rendering noice.
+	                break;
+	            default:
+	                break;
+	        }
+
+	        return true;
+	    }
 
 		private void thread_start()
 		{
@@ -57,6 +90,7 @@ namespace Waves {
 
 		public static int main(string[] args) {
 	        var init = GtkClutter.init (ref args);
+	        Gst.init (ref args);
 
 	        if (init != Clutter.InitError.SUCCESS) {
 		        error ("Clutter could not be intiailized");
