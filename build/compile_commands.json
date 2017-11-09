@@ -1,0 +1,22 @@
+[
+  {
+    "directory": "/home/nick/work/pulsate/build",
+    "command": "valac '--debug' '--vapidir' '/home/nick/work/pulsate/vapi' '-d' 'src/Pulsate@exe' '-C' '--pkg' 'libpulse-mainloop-glib' '--pkg' 'libpulse' '--pkg' 'glib-2.0' '--pkg' 'gtk+-3.0' '--pkg' 'clutter-1.0' '--pkg' 'clutter-gtk-1.0' '--pkg' 'libpulse-simple' '--pkg' 'gstreamer-1.0' '--target-glib=2.38' '--gresources=/home/nick/work/pulsate/data/Pulsate-resource.xml' ../src/Waves.vala ../src/Pulse.vala ../src/Gst.vala",
+    "file": "../src/Waves.vala"
+  },
+  {
+    "directory": "/home/nick/work/pulsate/build",
+    "command": "cc  '-Isrc/Pulsate@exe' '-Isrc' '-I../src' '-I/usr/include/glib-2.0' '-I/usr/lib/x86_64-linux-gnu/glib-2.0/include' '-I/usr/include/at-spi2-atk/2.0' '-I/usr/include/at-spi-2.0' '-I/usr/include/dbus-1.0' '-I/usr/lib/x86_64-linux-gnu/dbus-1.0/include' '-I/usr/include/gtk-3.0' '-I/usr/include/gio-unix-2.0/' '-I/usr/include/mirclient' '-I/usr/include/mircore' '-I/usr/include/mircookie' '-I/usr/include/harfbuzz' '-I/usr/include/pango-1.0' '-I/usr/include/atk-1.0' '-I/usr/include/cairo' '-I/usr/include/pixman-1' '-I/usr/include/freetype2' '-I/usr/include/gdk-pixbuf-2.0' '-I/usr/include/libpng12' '-I/usr/include/clutter-1.0' '-I/usr/include/cogl' '-I/usr/include/libdrm' '-I/usr/include/json-glib-1.0' '-I/usr/include/clutter-gtk-1.0' '-I/usr/include/gstreamer-1.0' '-I/usr/lib/x86_64-linux-gnu/gstreamer-1.0/include' '-fdiagnostics-color=always' '-pipe' '-D_FILE_OFFSET_BITS=64' '-w' '-O0' '-g' '-pthread' '-D_REENTRANT' '-MMD' '-MQ' 'src/Pulsate@exe/src_Pulsate@exe_Waves.c.o' '-MF' 'src/Pulsate@exe/src_Pulsate@exe_Waves.c.o.d' -o 'src/Pulsate@exe/src_Pulsate@exe_Waves.c.o' -c 'src/Pulsate@exe/Waves.c'",
+    "file": "src/Pulsate@exe/Waves.c"
+  },
+  {
+    "directory": "/home/nick/work/pulsate/build",
+    "command": "cc  '-Isrc/Pulsate@exe' '-Isrc' '-I../src' '-I/usr/include/glib-2.0' '-I/usr/lib/x86_64-linux-gnu/glib-2.0/include' '-I/usr/include/at-spi2-atk/2.0' '-I/usr/include/at-spi-2.0' '-I/usr/include/dbus-1.0' '-I/usr/lib/x86_64-linux-gnu/dbus-1.0/include' '-I/usr/include/gtk-3.0' '-I/usr/include/gio-unix-2.0/' '-I/usr/include/mirclient' '-I/usr/include/mircore' '-I/usr/include/mircookie' '-I/usr/include/harfbuzz' '-I/usr/include/pango-1.0' '-I/usr/include/atk-1.0' '-I/usr/include/cairo' '-I/usr/include/pixman-1' '-I/usr/include/freetype2' '-I/usr/include/gdk-pixbuf-2.0' '-I/usr/include/libpng12' '-I/usr/include/clutter-1.0' '-I/usr/include/cogl' '-I/usr/include/libdrm' '-I/usr/include/json-glib-1.0' '-I/usr/include/clutter-gtk-1.0' '-I/usr/include/gstreamer-1.0' '-I/usr/lib/x86_64-linux-gnu/gstreamer-1.0/include' '-fdiagnostics-color=always' '-pipe' '-D_FILE_OFFSET_BITS=64' '-w' '-O0' '-g' '-pthread' '-D_REENTRANT' '-MMD' '-MQ' 'src/Pulsate@exe/src_Pulsate@exe_Pulse.c.o' '-MF' 'src/Pulsate@exe/src_Pulsate@exe_Pulse.c.o.d' -o 'src/Pulsate@exe/src_Pulsate@exe_Pulse.c.o' -c 'src/Pulsate@exe/Pulse.c'",
+    "file": "src/Pulsate@exe/Pulse.c"
+  },
+  {
+    "directory": "/home/nick/work/pulsate/build",
+    "command": "cc  '-Isrc/Pulsate@exe' '-Isrc' '-I../src' '-I/usr/include/glib-2.0' '-I/usr/lib/x86_64-linux-gnu/glib-2.0/include' '-I/usr/include/at-spi2-atk/2.0' '-I/usr/include/at-spi-2.0' '-I/usr/include/dbus-1.0' '-I/usr/lib/x86_64-linux-gnu/dbus-1.0/include' '-I/usr/include/gtk-3.0' '-I/usr/include/gio-unix-2.0/' '-I/usr/include/mirclient' '-I/usr/include/mircore' '-I/usr/include/mircookie' '-I/usr/include/harfbuzz' '-I/usr/include/pango-1.0' '-I/usr/include/atk-1.0' '-I/usr/include/cairo' '-I/usr/include/pixman-1' '-I/usr/include/freetype2' '-I/usr/include/gdk-pixbuf-2.0' '-I/usr/include/libpng12' '-I/usr/include/clutter-1.0' '-I/usr/include/cogl' '-I/usr/include/libdrm' '-I/usr/include/json-glib-1.0' '-I/usr/include/clutter-gtk-1.0' '-I/usr/include/gstreamer-1.0' '-I/usr/lib/x86_64-linux-gnu/gstreamer-1.0/include' '-fdiagnostics-color=always' '-pipe' '-D_FILE_OFFSET_BITS=64' '-w' '-O0' '-g' '-pthread' '-D_REENTRANT' '-MMD' '-MQ' 'src/Pulsate@exe/src_Pulsate@exe_Gst.c.o' '-MF' 'src/Pulsate@exe/src_Pulsate@exe_Gst.c.o.d' -o 'src/Pulsate@exe/src_Pulsate@exe_Gst.c.o' -c 'src/Pulsate@exe/Gst.c'",
+    "file": "src/Pulsate@exe/Gst.c"
+  }
+]

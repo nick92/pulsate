@@ -2,10 +2,12 @@ using Gtk;
 using Clutter;
 using GtkClutter;
 using Gst;
+using Cairo;
 
 namespace Waves {
 	public class Main : Gtk.Application {
 		Clutter.Actor actors;
+		Clutter.Canvas canvas;
 		Clutter.Stage stage;
 		GtkClutter.Embed clutter;
 		Gtk.Window window;
@@ -21,6 +23,7 @@ namespace Waves {
 			window.set_title("Pulsate");
 			window.destroy.connect( () => Gtk.main_quit());
 			actors = new Clutter.Actor();
+			canvas = new Clutter.Canvas();
 			fft = new FFTStreamer();
 			
 			//pulse = new Pulse ();
@@ -32,14 +35,19 @@ namespace Waves {
 
 	        for(int i = 0; i < spect_bands; i++){
 				var actor_i = new Clutter.Actor ();
-				actor_i.background_color = { 0, 255, 0, 128 };
-				actor_i.set_size(20, 1);
+				actor_i.background_color = { 100, 255, 0, 200 };
+				actor_i.set_size(15, 1);
 				actor_i.set_position(20*i, 10);
 				//actor_i.set_rotation(RotateAxis.X_AXIS, )
 				actors.add_child(actor_i);
 			}
 
-			stage.add_child(actors);
+			canvas.set_size(200, 200);
+
+			stage.set_content(canvas);
+			//stage.add_child(actors);
+
+			//window.add(clutter);
 			window.add(clutter);
 
 			//this.thread_start();
@@ -49,6 +57,24 @@ namespace Waves {
 
 			Gst.Bus bus = pip.get_bus ();
         	bus.add_watch (0, bus_callback);
+
+			canvas.draw.connect(drawing_on_canvas);	
+			canvas.invalidate();
+		}
+
+		private bool drawing_on_canvas(Cairo.Context ctx, int width, int height) {
+			int SIZE = 20;
+
+			//ctx.set_source_rgb (0, 0, 0);
+
+		    // Red box:
+		    for(int i = 0; i < spect_bands; i++){
+				ctx.set_source_rgba (1, 0, 0, 1);
+				ctx.rectangle (25, 25, 75, 75);
+				ctx.fill ();
+			}
+		    
+			return true;
 		}
 
 		private bool bus_callback (Gst.Bus bus, Gst.Message message) {
@@ -70,7 +96,7 @@ namespace Waves {
 							//print(mag.get_float ().to_string() +"\n");
 							//print(phase.get_float ().to_string() +"\n");
 
-							var dphase = phase.get_float() * -10; 
+							var dphase = mag.get_float() * -1; 
 
 							expand_actor(actors.get_child_at_index(i), dphase);
 						}
@@ -119,7 +145,7 @@ namespace Waves {
     	Clutter.PropertyTransition expand_actor (Clutter.Actor actor, double i_height) {
 	        var transition = new Clutter.PropertyTransition ("height");
 	        transition.animatable = actor;
-	        transition.set_duration (6000);
+	        transition.set_duration (1);
 	        transition.set_progress_mode (Clutter.AnimationMode.EASE_OUT_CIRC);
 	        transition.set_from_value (actor.height);
 	        transition.set_to_value (i_height);

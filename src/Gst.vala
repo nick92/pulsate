@@ -17,7 +17,7 @@ public class FFTStreamer {
 
         spectrum = Gst.ElementFactory.make ("spectrum", "spectrum");
         spectrum.set_property ("multi-channel", false);
-        spectrum.set_property ("interval", 1000);
+        //spectrum.set_property ("interval", 1000);
         spectrum.set_property ("bands", 30);
         spectrum.set_property ("threshold", -80);
         spectrum.set_property ("post-messages", true);
